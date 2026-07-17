@@ -232,4 +232,117 @@ from employees2;
 select department, count(emp_id) emp_count
 from employees2
 group by department;
--- -----------------------------------------------------------------------
+-- 11-----------------------------------------------------------------------
+
+CREATE TABLE staff (
+emp_id INT,
+emp_name VARCHAR(50),
+department VARCHAR(30)
+);
+INSERT INTO staff VALUES
+(1, 'Rajiv Khanna', 'Sales'),
+(2, 'Mona Goyal', 'IT'),
+(3, 'Harsh Patel', 'HR'),
+(4, 'Sana Shaikh', 'Sales'),
+(5, 'Aman Agarwal', 'Admin');
+
+select *
+from staff;
+
+-- Q11. Show list of employees not from the Sales department
+
+select *
+from staff
+where department not in ('sales');
+-- 12-------------------------------------------------------------------------
+
+CREATE TABLE medicines2 (
+med_id INT,
+med_name VARCHAR(50),
+category VARCHAR(30),
+price INT
+);
+INSERT INTO medicines2 VALUES
+(1, 'Paracetamol', 'Fever', 45),
+(2, 'Aspirin', 'Pain Relief', 90),
+(3, 'Dolo 650', 'Fever', 120),
+(4, 'Zincovit', 'Vitamin', 180),
+(5, 'Cetrizine', 'Allergy', 60);
+
+select *
+from medicines2;
+
+-- Q12. Find all medicines priced between ₹50 and ₹150
+
+select *
+from medicines2
+where price between 50 and 150;
+-- 13--------------------------------------------------------------------------
+
+CREATE TABLE contacts (
+contact_id INT,
+full_name VARCHAR(50),
+phone_number VARCHAR(15)
+);
+INSERT INTO contacts VALUES
+(1, 'Rishi Kapoor', '9876543289'),
+(2, 'Aarti Mishra', '9810023456'),
+(3, 'Vivek Dubey', '9867543289'),
+(4, 'Nikita Shah', '9822331144'),
+(5, 'Samar Khan', '9898989888');
+
+select *
+from contacts;
+
+-- Q13. Show the names of people whose phone number ends with '89'
+
+select *
+from contacts
+where phone_number like "%89";
+-- 14-----------------------------------------------------------------------
+
+CREATE TABLE exam_scores (
+student_id INT,
+student_name VARCHAR(50),
+subject VARCHAR(30),
+score INT
+);
+INSERT INTO exam_scores VALUES
+(1, 'Tanya Joshi', 'Maths', 88),
+(2, 'Amit Sinha', 'Science', 76),
+(3, 'Ishaan Roy', 'Maths', 67),
+(4, 'Priya Rawat', 'Maths', 92),
+(5, 'Zoya Khan', 'English', 83);
+
+select *
+from exam_scores;
+
+-- Q14. Show names of students who scored more than 80 in Maths
+
+select *
+from exam_scores
+where subject like 'Maths'
+and score > 80;
+-- 15------------------------------------------------------------------------
+
+CREATE TABLE books (
+book_id INT PRIMARY KEY,
+title VARCHAR(100),
+author VARCHAR(50),
+price INT
+);
+INSERT INTO books VALUES
+(1, 'Intro to Economics', 'Ankit Mehta', 250),
+(2, 'Advanced Finance', 'Neha Desai', 400),
+(3, 'Startup Growth', 'Ankit Mehta', 300),
+(4, 'World History', 'Raj Malhotra', 350),
+(5, 'Python Basics', 'Ankit Mehta', 200);
+
+select *
+from books;
+
+-- Q15. Show the prices of all books written by ‘Ankit Mehta’
+
+select *
+from books
+where author like 'Ankit Mehta';
