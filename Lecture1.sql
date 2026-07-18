@@ -346,3 +346,213 @@ from books;
 select *
 from books
 where author like 'Ankit Mehta';
+-- 16--------------------------------------------------------------------------
+
+CREATE TABLE menu_items (
+item_id INT PRIMARY KEY,
+item_name VARCHAR(50),
+price DECIMAL(10,2)
+);
+INSERT INTO menu_items (item_id, item_name, price) VALUES
+(1, 'Dosa', 70.00),
+(2, 'Samosa', 15.00),
+(3, 'Paneer Roll', 80.00),
+(4, 'Tea', 10.00),
+(5, 'Biryani', 120.00);
+
+select *
+from menu_items;
+
+-- Q16. How many food items are listed in the menu?
+
+select count(*) Total_Items
+from menu_items;
+-- 17------------------------------------------------------------------------
+
+CREATE TABLE delivery_hubs (
+hub_id INT PRIMARY KEY,
+company_name VARCHAR(50),
+location_city VARCHAR(50)
+);
+INSERT INTO delivery_hubs (hub_id, company_name, location_city) VALUES
+(1, 'Amazon', 'Bangalore'),
+(2, 'Flipkart', 'Pune'),
+(3, 'Amazon', 'Ahmedabad'),
+(4, 'Delhivery', 'Mumbai'),
+(5, 'Amazon', 'Bangalore');
+
+select *
+from delivery_hubs;
+
+-- Q17. List all cities where Amazon has delivery hubs
+
+select distinct location_city
+from delivery_hubs
+where company_name like 'Amazon';
+-- 18-------------------------------------------------------------------------
+
+CREATE TABLE payment_logs (
+payment_id INT PRIMARY KEY,
+platform VARCHAR(50),
+amount_paid DECIMAL(10,2)
+);
+INSERT INTO payment_logs (payment_id, platform, amount_paid) VALUES
+(1, 'Paytm', 400.00),
+(2, 'PhonePe', 350.00),
+(3, 'Paytm', 500.00),
+(4, 'Google Pay', 300.00),
+(5, 'Paytm', 800.00);
+
+select *
+from payment_logs;
+
+-- Q18. Calculate total payment collected from Paytm users
+
+select sum(amount_paid) Paytm_users_total_payment
+from payment_logs
+where platform like 'Paytm';
+-- 19--------------------------------------------------------------------------
+
+CREATE TABLE volunteers (
+volunteer_id INT PRIMARY KEY,
+volunteer_name VARCHAR(50),
+contact_number VARCHAR(15)
+);
+CREATE TABLE events (
+event_id INT PRIMARY KEY,
+event_name VARCHAR(100),
+volunteer_id INT
+);
+INSERT INTO volunteers VALUES
+(1, 'Samar Khan', '9876543210'),
+(2, 'Isha Kapoor', '9012345678'),
+(3, 'Manav Mehta', '7894561230');
+INSERT INTO events VALUES
+(1, 'Youth Clean-Up Drive', 1),
+(2, 'Tree Plantation', 2),
+(3, 'Youth Clean-Up Drive', 3);
+
+select * from volunteers;
+select * from events;
+
+-- Q19. List all volunteers participating in ‘Youth Clean-Up Drive’ along with their contact details
+
+select v.volunteer_id, volunteer_name, contact_number
+from volunteers v
+join events e
+on v.volunteer_id = e.volunteer_id
+where event_name like "Youth Clean-Up Drive";
+-- 20-------------------------------------------------------------------------
+
+CREATE TABLE appointments (
+appointment_id INT PRIMARY KEY,
+doctor_id INT,
+appointment_date DATE
+);
+INSERT INTO appointments VALUES
+(1, 101, '2024-04-01'),
+(2, 102, '2024-04-01'),
+(3, 101, '2024-04-03'),
+(4, 103, '2024-04-04'),
+(5, 101, '2024-04-05');
+
+select *
+from appointments;
+
+-- Q20. Count the number of appointments taken per doctor
+
+select doctor_id, count(appointment_id) no_of_appointments
+from appointments
+group by doctor_id;
+-- 21-------------------------------------------------------------------------
+
+CREATE TABLE course_enrollments (
+enrollment_id INT PRIMARY KEY,
+course_name VARCHAR(50),
+student_id INT
+);
+INSERT INTO course_enrollments VALUES
+(1, 'Python Basics', 201),
+(2, 'Python Basics', 202),
+(3, 'Python Basics', 203),
+(4, 'Data Analytics', 204),
+(5, 'Data Analytics', 205),
+(6, 'Web Design', 206),
+(7, 'Python Basics', 207),
+(8, 'Web Design', 208),
+(9, 'Data Analytics', 209),
+(10, 'Python Basics', 210),
+(11, 'Python Basics', 211),
+(12, 'Python Basics', 212),
+(13, 'Python Basics', 213),
+(14, 'Python Basics', 214),
+(15, 'Python Basics', 215),
+(16, 'Python Basics', 216);
+
+select *
+from course_enrollments;
+
+-- Q21. Find all courses with more than 15 enrolled students
+
+select course_name, count(*) student_count
+from course_enrollments
+group by course_name
+having count(*) >= 2;
+-- 22-----------------------------------------------------------------------
+
+CREATE TABLE customers3(
+customer_id INT PRIMARY KEY,
+customer_name VARCHAR(50)
+);
+CREATE TABLE orders2 (
+order_id INT PRIMARY KEY,
+customer_id INT,
+order_date DATE
+);
+INSERT INTO customers3 VALUES
+(1, 'Aman Ojha'),
+(2, 'Mrinal Sen'),
+(3, 'Kunal Arora');
+INSERT INTO orders2 VALUES
+(1, 1, '2024-05-01'),
+(2, 2, '2024-05-01'),
+(3, 1, '2024-05-03'),
+(4, 3, '2024-05-04'),
+(5, 1, '2024-05-06');
+
+select * from customers3;
+select * from orders2;
+
+-- Q22. Show names of customers who placed more than one order
+
+select customer_name, count(*) order_count
+from customers3 c
+join orders2 o
+on c.customer_id = o.customer_id
+group by customer_name
+having count(*) > 1;
+-- 23---------------------------------------------------------------------------
+
+CREATE TABLE quiz_scores (
+record_id INT PRIMARY KEY,
+student_name VARCHAR(50),
+quiz_score INT
+);
+INSERT INTO quiz_scores VALUES
+(1, 'Mehul', 80),
+(2, 'Ananya', 90),
+(3, 'Mehul', 85),
+(4, 'Kavya', 78),
+(5, 'Ananya', 95),
+(6, 'Kavya', 84);
+
+select *
+from quiz_scores;
+
+-- Q23. Show the average score of each student across all quizzes
+
+select student_name, avg(quiz_score) avg_score
+from quiz_scores
+group by student_name
+order by avg_score desc;
+-- ----------------------------------------------------------------------------
